@@ -24,8 +24,8 @@ EOSQL
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/presetup.sql
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/admin/schema.sql
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/admin/functions/analyze_db.sql
-psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/admin/functions/verify_key.sql
-psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/admin/functions/verify_trusted.sql
+# psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/admin/functions/verify_key.sql
+# psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/admin/functions/verify_trusted.sql
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/admin/tables/trusted_keys.sql
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/api/schema.sql
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/api/functions/aggregate.sql

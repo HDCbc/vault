@@ -30,7 +30,7 @@
 
   --The api role needs the ability to execute the admin.verify_trusted function.
   --This will be called before a change is applied within the api.change() function
-  GRANT EXECUTE ON FUNCTION admin.verify_trusted(text, text) to api;
+  -- GRANT EXECUTE ON FUNCTION admin.verify_trusted(text, text) to api;
 
   --The api role needs the ability to select all data from the universal schema.
   --This will be used within indicator/concept functions to actually query clinical data.
