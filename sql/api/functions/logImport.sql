@@ -37,4 +37,4 @@ $BODY$
   SECURITY DEFINER;
 
 ALTER FUNCTION api.logImport()
-  OWNER TO postgres;
+  OWNER TO '$PGUSER';
