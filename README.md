@@ -15,6 +15,10 @@ openssl rsa -in private.pem -RSAPublicKey_out -out public.pem
 Now that your keys are in place you can use your private key to sign changes.
 Note that the first line must be removed when passing this signature to the database function.
 For example remove: (RSA-SHA256(data.txt)=)
+
+## Windows based
+If setting up a vault on a Windows host, prepend "winpty" in front of the openSSL commands
+
 # File based
 openssl dgst -hex -sign private.pem data.txt > signature.txt
 # Terminal based
