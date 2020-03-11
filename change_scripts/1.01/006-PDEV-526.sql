@@ -1,24 +1,9 @@
 /*
- * Used to run an indicator against the universal schema and retrieve an aggregate
- * numerator and denominator.
- *
- * p_indicator: The indicator to run. This is required and must match the name of a function
- * within the indicator schema that will be executed.
- *
- * p_clinic: The clinic to retrieve indicator results for. This is required and should match
- * a value within the universal.clinic.hdc_reference column.
- *
- * p_provider: The provider to retrieve indicator results for. This is optional. If provided
- * it should match a value within the universal.practitioner.identifier column. If ommitted,
- * the indicator will be run at the clinic level.
- *
- * p_effective_date: The date to run the indicator as of. This is required.
- *
- * Returns a pair of integers (numerator and denominator) on success. If an error occurs, then
- * 0 rows are returned.
- *
- * Regardless of success or failure, a row will be inserted into the audit.aggregate_log table.
- */
+    Author: Jonathan Zacharuk
+    Date:   April 14, 2020
+    Story:  PDEV-526: Handle queries that dont match provider reference
+*/
+
 CREATE OR REPLACE FUNCTION api.aggregate(
   IN p_indicator text,
   IN p_clinic text,
@@ -103,6 +88,7 @@ $BODY$
       RETURN QUERY SELECT v_numerator as numerator, v_denominator as denominator, v_count as kount;
 
     EXCEPTION WHEN others THEN
+
       --Insert a row into the aggregate_log table to indicate that the query failed to execute.
       INSERT INTO audit.aggregate_log(indicator, clinic, provider, effective_date, username, start_time, finish_time, success, numerator, denominator, kount, error_code, error_message)
       VALUES (p_indicator, p_clinic, p_provider, p_effective_date, CURRENT_USER, v_start_time, now(), FALSE, NULL, NULL, NULL, SQLSTATE, SQLERRM);
@@ -114,6 +100,3 @@ $BODY$
 $BODY$
   LANGUAGE plpgsql VOLATILE
   SECURITY DEFINER;
-
-ALTER FUNCTION api.aggregate(text, text, text, date)
-  OWNER TO api;
