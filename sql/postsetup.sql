@@ -8,6 +8,7 @@
   GRANT USAGE ON SCHEMA admin TO api;
   GRANT USAGE ON SCHEMA api TO api;
   GRANT USAGE ON SCHEMA audit TO api;
+  GRANT USAGE ON SCHEMA ext TO api;
   GRANT USAGE ON SCHEMA universal TO api;
 
   --The api role needs the ability to selects rows from the audit.change_log table.
