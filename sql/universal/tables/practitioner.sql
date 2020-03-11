@@ -3,8 +3,8 @@ CREATE TABLE universal.practitioner
   id bigserial NOT NULL,
   clinic_id bigint NOT NULL,
   name text,
-  identifier text NOT NULL,
-  identifier_type text NOT NULL,
+  identifier text,
+  identifier_type text,
   emr_id text,
   emr_reference text,
   CONSTRAINT practitioner_pkey PRIMARY KEY (id)
