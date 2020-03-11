@@ -24,18 +24,15 @@ EOSQL
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/presetup.sql
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/admin/schema.sql
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/admin/functions/analyze_db.sql
-psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/admin/functions/verify_key.sql
-psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/admin/functions/verify_trusted.sql
-psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/admin/tables/trusted_keys.sql
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/api/schema.sql
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/api/functions/aggregate.sql
-psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/api/functions/change.sql 
-psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/api/functions/logImport.sql 
-psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/api/functions/prepare.sql 
-psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/api/functions/reset.sql 
+psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/api/functions/change.sql
+psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/api/functions/logImport.sql
+psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/api/functions/prepare.sql
+psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/api/functions/reset.sql
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/api/functions/version.sql
-psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/audit/schema.sql 
-psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/audit/tables/aggregate_log.sql 
+psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/audit/schema.sql
+psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/audit/tables/aggregate_log.sql
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/audit/tables/change_log.sql
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/audit/tables/import_log.sql
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/concept/schema.sql
@@ -51,8 +48,3 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/universal/
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/universal/tables/entry_attribute.sql
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/universal/data/attributes.sql
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/postsetup.sql
-
-# Insert the trusted key env variable into the admin.trusted_keys table.
-psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault <<-EOSQL
-   INSERT INTO admin.trusted_keys (key) VALUES ('$TRUSTED_KEY');
-EOSQL
