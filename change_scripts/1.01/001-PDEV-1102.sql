@@ -1,21 +1,10 @@
 /*
- * Used to change indicators and concepts. This includes creating/updating/deleting
- * indicators, creating/updating/deleting concept functions/mappings/views.
- *
- * p_change_id: The id of the change. Changes must be made in consecutive order (e.g. 1, 2, 3).
- * This is required.
- *
- * p_statement: The INSERT/UPDATE/CREATE statement to execute against the concept/indicator schema.
- * This is required.
- *
- * p_signature: An armored ASCII signature that will be used to verify the authenticity of the
- * statement. The signature will be verified against the p_statement and the public key. *TODO*
- * This is required.
- *
- * Returns true on success or false on error.
- *
- * Regardless of success or failure, a row will be inserted into the audit.change_log table.
- */
+    Author: Jonathan Zacharuk
+    Date:   March 11, 2020
+    Story:  PDEV-1102: Remove Postgres Python Package
+*/
+
+-- Modify the change function to no longer verify
 CREATE OR REPLACE FUNCTION api.change(
   p_change_id bigint,
   p_statement text,
@@ -60,5 +49,12 @@ $BODY$
   LANGUAGE plpgsql VOLATILE
   SECURITY DEFINER;
 
-ALTER FUNCTION api.change(bigint, text, text)
-  OWNER TO api;
+-- Remove the two verify functions
+DROP FUNCTION IF EXISTS admin.verify_key(text, text, text);
+DROP FUNCTION IF EXISTS admin.verify_trusted(text, text);
+
+-- Remove the table that contained the trusted key
+DROP TABLE IF EXISTS admin.trusted_keys;
+
+-- Remove the python extension
+DROP EXTENSION IF EXISTS plpythonu;

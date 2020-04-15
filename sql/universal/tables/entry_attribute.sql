@@ -45,3 +45,8 @@ CREATE INDEX idx_entry_attribute_entry_id
   ON universal.entry_attribute
   USING btree
   (entry_id);
+
+CREATE INDEX idx_entry_attribute_emr_id_attribute_id_emr_effective_date
+  ON universal.entry_attribute
+  USING btree
+  (emr_id, attribute_id, emr_effective_date desc);

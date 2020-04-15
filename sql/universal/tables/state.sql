@@ -22,10 +22,15 @@ CREATE INDEX idx_state_state
   USING btree
   (state COLLATE pg_catalog."default");
 
-CREATE INDEX idx_state_record_type_record_id_emr_id 
-ON universal.state 
-USING btree ( 
- "record_type" COLLATE "pg_catalog"."default" "pg_catalog"."text_ops" ASC NULLS LAST, 
- "record_id" "pg_catalog"."int8_ops" ASC NULLS LAST, 
- "emr_id" COLLATE "pg_catalog"."default" "pg_catalog"."text_ops" ASC NULLS LAST 
+CREATE INDEX idx_state_record_type_record_id_emr_id
+ON universal.state
+USING btree (
+ "record_type" COLLATE "pg_catalog"."default" "pg_catalog"."text_ops" ASC NULLS LAST,
+ "record_id" "pg_catalog"."int8_ops" ASC NULLS LAST,
+ "emr_id" COLLATE "pg_catalog"."default" "pg_catalog"."text_ops" ASC NULLS LAST
 );
+
+CREATE INDEX idx_state_record_type_record_id_emr_id_effective_date
+  ON universal.state
+  USING btree
+  (record_type, record_id, emr_id, effective_date desc);

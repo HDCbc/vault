@@ -8,6 +8,7 @@
   GRANT USAGE ON SCHEMA admin TO api;
   GRANT USAGE ON SCHEMA api TO api;
   GRANT USAGE ON SCHEMA audit TO api;
+  GRANT USAGE ON SCHEMA ext TO api;
   GRANT USAGE ON SCHEMA universal TO api;
 
   --The api role needs the ability to selects rows from the audit.change_log table.
@@ -27,10 +28,6 @@
   --The api role needs the ability to execute the admin.analyze_db function.
   --This will be called in the api.prepare() function.
   GRANT EXECUTE ON FUNCTION admin.analyze_db() to api;
-
-  --The api role needs the ability to execute the admin.verify_trusted function.
-  --This will be called before a change is applied within the api.change() function
-  GRANT EXECUTE ON FUNCTION admin.verify_trusted(text, text) to api;
 
   --The api role needs the ability to select all data from the universal schema.
   --This will be used within indicator/concept functions to actually query clinical data.
