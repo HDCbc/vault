@@ -1,24 +1,9 @@
 /*
- * Used to run an indicator against the universal schema and retrieve an aggregate
- * numerator and denominator.
- *
- * p_indicator: The indicator to run. This is required and must match the name of a function
- * within the indicator schema that will be executed.
- *
- * p_clinic: The clinic to retrieve indicator results for. This is required and should match
- * a value within the universal.clinic.hdc_reference column.
- *
- * p_provider: The provider to retrieve indicator results for. This is optional. If provided
- * it should match a value within the universal.practitioner.identifier column. If ommitted,
- * the indicator will be run at the clinic level.
- *
- * p_effective_date: The date to run the indicator as of. This is required.
- *
- * Returns a pair of integers (numerator and denominator) on success. If an error occurs, then
- * 0 rows are returned.
- *
- * Regardless of success or failure, a row will be inserted into the audit.aggregate_log table.
- */
+    Author: Jonathan Zacharuk
+    Date:   May 19, 2020
+    Story:  PDEV-1284: Vault - Friendly vault aggregation errors
+*/
+
 CREATE OR REPLACE FUNCTION api.aggregate(
   IN p_indicator text,
   IN p_clinic text,
@@ -123,6 +108,3 @@ $BODY$
 $BODY$
   LANGUAGE plpgsql VOLATILE
   SECURITY DEFINER;
-
-ALTER FUNCTION api.aggregate(text, text, text, date)
-  OWNER TO api;
