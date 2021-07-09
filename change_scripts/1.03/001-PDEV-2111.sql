@@ -17,4 +17,4 @@ CREATE TABLE universal.exception
   CONSTRAINT exception_pkey PRIMARY KEY (id)
 );
 
-ALTER TABLE universal.exception OWNER TO adapter;  ;
+ALTER TABLE universal.exception OWNER TO adapter;  ;  ;
