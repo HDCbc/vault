@@ -27,6 +27,7 @@ echo "Running: ./sql/api/tables/*.sql"
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/audit/tables/aggregate_log.sql
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/audit/tables/change_log.sql
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/audit/tables/import_log.sql
+psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/audit/tables/prepare_log.sql
 echo "Running: ./sql/ext/*.sql"
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d vault -f ./sql/ext/schema.sql
 echo "Running: ./sql/concept/schema.sql"
